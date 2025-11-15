@@ -1,0 +1,4 @@
+This is a cloud deployment platform that enables users to deploy web apps directly from Git with automated builds
+ and global edge hosting. Integrated Cloudflare R2 for scalable and cost-efficient asset storage, and Cloudflare Workers
+ for serverless edge routing. Developed a dashboard for managing projects, deployments, environment variables, and
+ build logs.
