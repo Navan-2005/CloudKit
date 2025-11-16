@@ -1,1 +1,100 @@
-This is a cloud deployment platform that enables users to deploy web apps directly from Git with automated builds and global edge hosting. Integrated Cloudflare R2 for scalable and cost-efficient asset storage, and Cloudflare Workers for serverless edge routing. Developed a dashboard for managing projects, deployments, environment variables, and build logs.
+🚀 Cloud Deployment Platform – Overview
+
+A scalable and fully-automated cloud deployment platform that allows users to deploy web applications directly from Git repositories.
+The platform provides:
+
+Automated builds
+
+Global edge hosting
+
+Serverless routing
+
+Cost-efficient object storage
+
+Centralized logging & management dashboard
+
+Powered by Cloudflare R2 for storage, Cloudflare Workers for edge routing, AWS S3, and Redis for distributed job processing.
+
+🔧 Architecture Overview
+
+The platform consists of three core services, working together to provide a seamless deployment workflow.
+
+1️⃣ Upload Service (Source Ingestion)
+
+The Upload Service handles importing a user’s GitHub repository into the system.
+
+✔ How it works
+
+The user submits a GitHub repository URL.
+
+The service clones the repository and uploads the entire source code into AWS S3.
+
+A unique project ID is generated.
+
+This ID is pushed into a Redis queue for processing by the Deploy Service.
+
+📦 Responsibilities
+
+Git repo cloning
+
+Archiving and uploading project source to S3
+
+Enqueuing new deployment jobs into Redis
+
+Returning the deployment ID to the user
+
+2️⃣ Deploy Service (Build & Deployment Pipeline)
+
+This service processes job IDs coming from the Redis queue and performs the actual build.
+
+✔ How it works
+
+The Deploy Service listens to the Redis queue.
+
+When an ID arrives, it downloads the corresponding project source from S3.
+
+The source is analyzed:
+
+If it’s a React / SPA project, it is built and converted into static HTML, CSS, JS.
+
+Any other static assets are processed as well.
+
+The final optimized build output is uploaded back to S3 / Cloudflare R2 under the project’s deployment path.
+
+📦 Responsibilities
+
+Pulling build jobs from Redis
+
+Downloading project source from S3
+
+Running builds (React → static assets)
+
+Uploading optimized build output
+
+Updating Redis with deployment status
+
+3️⃣ Request Service (Edge Rendering & Delivery)
+
+The Request Service is responsible for serving the deployed project to end users.
+
+✔ How it works
+
+Incoming requests are routed via Cloudflare Workers.
+
+The subdomain is parsed to determine the project ID.
+
+The Request Service fetches the corresponding static assets from Cloudflare R2 / S3.
+
+The correct Content-Type headers are applied.
+
+Files are streamed back to the client quickly and efficiently.
+
+📦 Responsibilities
+
+Edge routing based on subdomain / custom domain
+
+Fetching deployed build files from S3/R2
+
+Serving HTML, CSS, JS, and assets
+
+Global caching and fast response times
