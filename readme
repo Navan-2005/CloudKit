@@ -1,17 +1,12 @@
-🚀 Cloud Deployment Platform – Overview
+🚀 Cloudkit – Overview
 
 A scalable and fully-automated cloud deployment platform that allows users to deploy web applications directly from Git repositories.
 The platform provides:
-
-Automated builds
-
-Global edge hosting
-
-Serverless routing
-
-Cost-efficient object storage
-
-Centralized logging & management dashboard
+• Automated builds
+• Global edge hosting
+• Serverless routing
+• Cost-efficient object storage
+• Centralized logging & management dashboard
 
 Powered by Cloudflare R2 for storage, Cloudflare Workers for edge routing, AWS S3, and Redis for distributed job processing.
 
