@@ -12,7 +12,7 @@ const s3= new S3({
 
 export async function downloadS3Folder(prefix: string) {
     const allFiles = await s3.listObjectsV2({
-        Bucket: "vercel",
+        Bucket: "cloudkit",
         Prefix: prefix
     }).promise();
     
